@@ -53,7 +53,9 @@
 				}
 			}
 		});
-		jxr.complete(loadBaros);
+		jxr.complete(function() {
+			setTimeout(loadBaros, 1000);
+		});
 	}
 	$(function() {
 		area = document.getElementById("area");

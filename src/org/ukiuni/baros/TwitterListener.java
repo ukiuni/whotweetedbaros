@@ -22,6 +22,7 @@ import twitter4j.TwitterStreamFactory;
 
 @SuppressWarnings("serial")
 public class TwitterListener extends HttpServlet {
+	private static final int MAX_LOAD_FROM_DB_COUNT = 100;
 	private static TwitterStream twitterStream;
 	private static final String SEARCH_WORD = ResourceBundle.getBundle("twitter4j").getString("searchWord");
 
@@ -33,7 +34,7 @@ public class TwitterListener extends HttpServlet {
 			synchronized (TwitterListener.class) {
 				try {
 					TwitterListener.class.wait();
-					statuses = SingletonS2Container.getComponent(JdbcManager.class).from(org.ukiuni.baros.entity.Status.class).where(new SimpleWhere().gt("id", index)).orderBy("id").getResultList();
+					statuses = SingletonS2Container.getComponent(JdbcManager.class).from(org.ukiuni.baros.entity.Status.class).where(new SimpleWhere().gt("id", index)).orderBy("id").limit(MAX_LOAD_FROM_DB_COUNT).getResultList();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
