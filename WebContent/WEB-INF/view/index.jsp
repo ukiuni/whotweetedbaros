@@ -32,7 +32,8 @@
 				var status = data[i];
 				var img = document.createElement("img");
 				img.src = status.imageUrl;
-				img.alt = status.text;
+				img.alt = status.screenName;
+				img.title = status.screenName;
 				img.style.width = "30px";
 				img.style.height = "30px";
 				img.style.top = Math.floor(Math.random() * 96) + "%";
